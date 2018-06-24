@@ -5,6 +5,7 @@ class VirtualGamepad extends Phaser.Sprite {
         this.dpadCallbacks = null
         this.dpad = null
         this.game.input.maxPointers = 2 // only two touch pointers are captured
+        this.scale.set
     }
 
     addDPadButton(x, y, buttonImg, callbacks) {
@@ -24,7 +25,7 @@ class VirtualGamepad extends Phaser.Sprite {
         let button = this.game.add.sprite(x, y, buttonImg);
         button.fixedToCamera = true;
         button.anchor.setTo(0.5, 0.5)
-        button.scale.setTo(2, 2)
+        button.scale.setTo(1, 1)
         button.alpha = 0.7
         button.inputEnabled = true
         button.smoothed = false
@@ -56,10 +57,10 @@ class VirtualGamepad extends Phaser.Sprite {
             let x = pointer.x - this.dpad.cameraOffset.x
             this.dpad.frame = 1
             if (x > 0) {// right
-                this.dpad.scale.x = 2
+                this.dpad.scale.x = 1
                 this.dpadCallbacks.rightPressed()
             } else { // left
-                this.dpad.scale.x = -2
+                this.dpad.scale.x = -1
                 this.dpadCallbacks.leftPressed()
             }
         }

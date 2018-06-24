@@ -1,64 +1,81 @@
 'use strict'
 
 class GameState extends BaseState {
-    
-    create() {
-      //  var obstacles
-        
-      
-      
-        this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
+    create() {
+        //  var obstacles
+
+        
+        this.game.physics.startSystem(Phaser.Physics.ARCADE)
+        this.game.physics.arcade.gravity.y = config.GRAVITY 
+        
         let skyWidth = this.game.cache.getImage('sky').width
         let skyHeight = this.game.cache.getImage('sky').height
         this.sky = this.game.add.tileSprite(
             0, 0, skyWidth, skyHeight, 'sky')
-        this.sky.scale.x = this.game.width / this.sky.width
-        this.sky.scale.y = this.game.height / this.sky.height
-        this.sky.fixedToCamera = true
-
-        this.fog = this.game.add.tileSprite(
-            0, 0, this.game.width, this.game.height, 'fog')
-        this.fog.tileScale.setTo(7, 7)
-        this.fog.alpha = 0.4
-        this.fog.fixedToCamera = true
-
-        //this.obstacles = this.game.add.group()
-        this.createTileMap()
-        this.createExplosions()
-
-        this.player1 = new Player(this.game, 100, 100,
-            'plane1', 0xff0000, this.createBullets(), {
-                left: Phaser.Keyboard.LEFT,
-                right: Phaser.Keyboard.RIGHT,
-                up: Phaser.Keyboard.UP,
-                down: Phaser.Keyboard.DOWN,
-                fire: Phaser.Keyboard.UP//L
-            })
-        this.game.add.existing(this.player1)
-        this.game.camera.follow(this.player1, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1); // smooth        
-
-        this.hud = {
-            text1: this.createText(this.game.width * 1 / 9, 50, 'PLAYER 1: 20'),
-            text2: this.createText(this.game.width * 8 / 9, 50, 'PLAYER 2: 20')
-            //fps: createHealthText(game.width*6/9, 50, 'FPS'),
-        }
-        this.updateHud()
-
-        let fps = new FramesPerSecond(this.game, this.game.width / 2, 50)
-        this.game.add.existing(fps)
-
-        let fullScreenButton = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE)
-        fullScreenButton.onDown.add(this.toggleFullScreen, this)
-
-        //game.time.advancedTiming = true;
-        this.initFullScreenButtons()
-    }
-
-    loadFile() {
-        let text = this.game.cache.getText('level1');
-        return text.split('\n');
-    }
+            this.sky.scale.x = this.game.width / this.sky.width
+            this.sky.scale.y = this.game.height / this.sky.height
+            this.sky.fixedToCamera = true
+            
+            this.fog = this.game.add.tileSprite(
+                0, 0, this.game.width, this.game.height, 'fog')
+                this.fog.tileScale.setTo(7, 7)
+                this.fog.alpha = 0.4
+                this.fog.fixedToCamera = true
+                
+                //this.obstacles = this.game.add.group()
+                this.createTileMap()
+                this.createExplosions()
+                
+                
+                
+                this.player1 = new Player(this.game, 100, 100,
+                    'animation', 0xff0000, null, {
+                        left: Phaser.Keyboard.LEFT,
+                        right: Phaser.Keyboard.RIGHT,
+                        andarR: Phaser.Keyboard.S,
+                        andarL: Phaser.Keyboard.A,
+                        jump: Phaser.Keyboard.UP
+                    })
+                    this.game.add.existing(this.player1)
+                    this.game.camera.follow(this.player1, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1); // smooth        
+                    
+                    this.hud = {
+                        text1: this.createText(this.game.width * 1 / 9, 50, 'PLAYER 1: 20'),
+                        text2: this.createText(this.game.width * 8 / 9, 50, 'PLAYER 2: 20')
+                        //fps: createHealthText(game.width*6/9, 50, 'FPS'),
+                    }
+                    this.updateHud()
+                    
+                    let fps = new FramesPerSecond(this.game, this.game.width / 2, 50)
+                    this.game.add.existing(fps)
+                    
+                    let fullScreenButton = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE)
+                    fullScreenButton.onDown.add(this.toggleFullScreen, this)
+                    
+                    
+                    //game.time.advancedTiming = true;
+                    this.initFullScreenButtons()
+                    
+                    let vpad = new VirtualGamepad(this.game)
+                    this.game.add.existing(vpad)
+                    
+                    let jumpButton = vpad.addActionButton(
+                        this.game.width-100, this.game.height-120, 'vstick_button',() => this.player1.jump())
+                        
+                        let dpadButton = vpad.addDPadButton(100, this.game.height - 120, 'vstick_dpad', {
+                            leftPressed: () => this.player1.keys.left.isDown = true,
+                            leftReleased: () => this.player1.keys.left.isDown = false,
+                            rightPressed: () => this.player1.keys.right.isDown = true,
+                            rightReleased: () => this.player1.keys.right.isDown = false
+                        })
+                        
+                    }
+                    
+                    loadFile() {
+                        let text = this.game.cache.getText('level1');
+                        return text.split('\n');
+                    }
 
     createTileMap() {
         // TODO implementar leitura do arquivo de tilemap e objetos
@@ -72,46 +89,25 @@ class GameState extends BaseState {
         //this.mapLayer.resizeWorld()
         //spikes
         //this.map.setTileIndexCallback(29, this.hitSpikes, this);
-        
+
         //this.obstacles = this.game.add.group()
         //this.map.createFromObjects('Camada de Objetos 1', 45, 'saw', 0, true, true, this.obstacles, Saw  )
-        
+
 
         this.mapLayer.resizeWorld()
 
-        
-
-let vpad = new VirtualGamepad(this.game)
-
-this.game.add.existing(vpad)
 
 
 
-let jumpButton = vpad.addActionButton(
-
-this.game.width-100, this.game.height-100, 'vstick_button',
-
-() => this.player1.jump())
 
 
-let dpadButton = vpad.addDPadButton(
 
-155, this.game.height-100, 'vstick_dpad', {
 
-leftPressed: () => this.player1.keys.left.isDown = true,
-
-leftReleased: () => this.player1.keys.left.isDown = false,
-
-rightPressed: () => this.player1.keys.right.isDown = true,
-
-rightReleased:() => this.player1.keys.right.isDown = false
-
-})
     }
 
-    hitSpikes(sprite, tile){
-        sprite.alpha=0.5
-        tile.alpha=0.0
+    hitSpikes(sprite, tile) {
+        sprite.alpha = 0.5
+        tile.alpha = 0.0
         this.mapLayer.dirty = true // força update dos tiles do mapa.
     }
 

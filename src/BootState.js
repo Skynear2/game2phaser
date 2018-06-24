@@ -4,7 +4,8 @@ class BootState extends Phaser.State {
 
     preload() {
         this.game.load.image('sky', 'assets/sky.png')
-        this.game.load.image('plane1', 'assets/airplane1.png')
+        this.game.load.spritesheet('animation', 'assets/spritesheet (2).png', 71,70, 8)
+        this.game.load.image('plane1', 'assets/Idle (1).png')
         this.game.load.image('shot', 'assets/shot.png')
         this.game.load.image('wall', 'assets/wall.png')
         this.game.load.image('fog', 'assets/fog.png')
@@ -12,6 +13,7 @@ class BootState extends Phaser.State {
         this.game.load.image('smoke', 'assets/smoke.png')
         this.game.load.image('title', 'assets/title.png')
         this.game.load.spritesheet('vstick_button', 'assets/button_action.png', 50, 50)
+        this.game.load.spritesheet('vstick_dpad', 'assets/button_dpad.png', 105, 50)
         this.game.load.spritesheet('vstick_dpad', 'assets/button_dpad.png', 105, 50)
 
         this.game.load.spritesheet('explosion', 'assets/explosion.png', 56, 56)
