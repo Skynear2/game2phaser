@@ -6,14 +6,13 @@ class Player extends Phaser.Sprite {
         game.physics.arcade.enable(this)
         this.health = config.PLAYER_HEALTH
         //this.body.isCircle = true
-        this.body.setSize(50, 143, 25, 15)
+        this.body.setSize(45, 58, 13, 8)
         this.anchor.setTo(0.4, 0.4)
         this.velocity = 200
 
-        this.body.gravity.y = 7050;
+        this.body.gravity.y = 450;
         this.scale.setTo(1,1)
-        this.body.maxVelocity.x = config.PLAYER_MAX_VELOCITY
-        this.body.maxVelocity.y = config.PLAYER_MAX_VELOCITY_JUMP
+        
         
 
         this.body.collideWorldBounds = true
@@ -34,7 +33,7 @@ class Player extends Phaser.Sprite {
         }
 
         
-        this.jumpAllow = false
+        this.jumpAllow = true
         this.bullets = bullets
 
     }        
@@ -64,20 +63,22 @@ class Player extends Phaser.Sprite {
 
         
         if (this.keys.jump.isDown){
-            if(this.jumpAllow){
-                this.body.velocity.y += -config.PLAYER_MAX_JUMP
+            if(this.body.onFloor){
+                this.body.velocity.y += -500
             }
-            this.jumpAllow = false
+            //this.jumpAllow = false
         }
 
     }
 
     jump() {
-        if(this.jumpAllow){
-            this.body.velocity.y += -config.PLAYER_MAX_JUMP
+        if(this.body.onFloor()){
+            console.log('chao:'+this.body.onFloor())
+            this.body.velocity.y += -500
         }
-        this.jumpAllow = false
-    }
+        else 
+            this.body.velocity.y+= 0
+}
      
     update() {
         this.movePerson()

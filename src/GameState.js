@@ -33,8 +33,6 @@ class GameState extends BaseState {
                     'animation', 0xff0000, null, {
                         left: Phaser.Keyboard.LEFT,
                         right: Phaser.Keyboard.RIGHT,
-                        andarR: Phaser.Keyboard.S,
-                        andarL: Phaser.Keyboard.A,
                         jump: Phaser.Keyboard.UP
                     })
                     this.game.add.existing(this.player1)
@@ -83,7 +81,7 @@ class GameState extends BaseState {
         this.map.addTilesetImage('Tiles_32x32')
 
         this.mapLayer = this.map.createLayer('Camada de Tiles 1')
-        this.map.setCollisionBetween(1, 65, true, 'Camada de Tiles 1')
+        this.map.setCollisionBetween(1, 1, true, 'Camada de Tiles 1')
 
 
         //this.mapLayer.resizeWorld()
@@ -211,6 +209,7 @@ class GameState extends BaseState {
     }
 
     render() {
+        this.game.debug.body(this.player1)
         //obstacles.forEach(function(obj) { game.debug.body(obj) })
         //game.debug.body(player1)
         //game.debug.body(player2)
