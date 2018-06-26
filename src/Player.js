@@ -82,5 +82,7 @@ class Player extends Phaser.Sprite {
      
     update() {
         this.movePerson()
+        //console.log('x:' + this.body.x )
+        //console.log('y:' + this.body.y )
     }
 }

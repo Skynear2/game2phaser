@@ -1,10 +1,12 @@
 
 class Saw extends Phaser.Sprite {
-    constructor(game, x, y, img, type) {
+    constructor(game, x, y, img, ) {
         super(game, x, y, img)
         this.scale.setTo(1.5,1.5)
         this.anchor.setTo(0.5, 0.5)
         game.physics.arcade.enable(this)
+        this.body.immovable = true
+        this.body.allowGravity = false
 
         this.body.setSize(32, 32, 16, 16)
         this.body.isCircle = true
@@ -16,46 +18,7 @@ class Saw extends Phaser.Sprite {
         var hDelay = game.width/(config.SAW_VELOCITY/1000)
         var vDelay = game.height/(config.SAW_VELOCITY/1000)
         
-        if (type == 'T') { // top
-            game.add.tween(this)
-                .to( { x: right, y: up }, hDelay/2 )
-                .to( { x: right, y: down }, vDelay )
-                .to( { x: left, y: down }, hDelay )
-                .to( { x: left, y: up }, vDelay )
-                .to( { x: x, y: y }, hDelay/2 )
-                .loop(-1)
-                .start()
-        } else
-        if (type == 'R') { // right
-            game.add.tween(this)
-                .to( { x: right, y: down }, vDelay/2 )
-                .to( { x: left, y: down }, hDelay )
-                .to( { x: left, y: up }, vDelay )
-                .to( { x: right, y: up }, hDelay )
-                .to( { x: x, y: y }, vDelay/2 )
-                .loop(-1)
-                .start()        
-        } else
-        if (type == 'D') { // down
-            game.add.tween(this)
-                .to( { x: left, y: down }, hDelay/2 )
-                .to( { x: left, y: up }, vDelay )
-                .to( { x: right, y: up }, hDelay )
-                .to( { x: right, y: down }, vDelay )
-                .to( { x: x, y: y }, hDelay/2 )            
-                .loop(-1)
-                .start()        
-        } else
-        if (type == 'L') { // left
-            game.add.tween(this)
-                .to( { x: left, y: up }, vDelay/2 )
-                .to( { x: right, y: up }, hDelay )
-                .to( { x: right, y: down }, vDelay )
-                .to( { x: left, y: down }, hDelay )
-                .to( { x: x, y: y }, vDelay/2 )            
-                .loop(-1)
-                .start()        
-        }
+        
                     
         game.add.tween(this)
             .to ( { alpha: 0.6 }, 500 )

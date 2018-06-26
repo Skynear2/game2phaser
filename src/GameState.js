@@ -1,11 +1,11 @@
 'use strict'
-
+var obstacles
 class GameState extends BaseState {
-
+    
     create() {
         //  var obstacles
 
-        
+        //this.obstacles = this.game.add.group()
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         this.game.physics.arcade.gravity.y = config.GRAVITY 
         
@@ -79,26 +79,33 @@ class GameState extends BaseState {
         // TODO implementar leitura do arquivo de tilemap e objetos
         this.map = this.game.add.tilemap('level1')
         this.map.addTilesetImage('Tiles_32x32')
+        this.map.addTilesetImage('feather')
+        this.map.addTilesetImage('saw')
 
+        //this.mapLayer_serras = this.map.createLayer('Camada de Objetos2')
+        //this.map.setCollisionBetween(65, 66, true, 'Camada de Tiles 2')
+        
         this.mapLayer = this.map.createLayer('Camada de Tiles 1')
-        this.map.setCollisionBetween(1, 1, true, 'Camada de Tiles 1')
+        this.map.setCollisionBetween(1, 65, true, 'Camada de Tiles 1')
 
 
         //this.mapLayer.resizeWorld()
         //spikes
-        //this.map.setTileIndexCallback(29, this.hitSpikes, this);
+        this.map.setTileIndexCallback(66, this.hitSpikes, this);
 
-        //this.obstacles = this.game.add.group()
-        //this.map.createFromObjects('Camada de Objetos 1', 45, 'saw', 0, true, true, this.obstacles, Saw  )
-
+        this.obstacles = this.game.add.group()
+        this.feather = this.game.add.group()
+        //this.map.createFromObjects('Camada de Objetos 1', 66, 'feather', 0, true, true, this.obstacles, fea  )
+        this.map.createFromObjects('Camada de Objetos 1',65, 'feather',0 ,true, true, this.feather, Saw)
+        this.map.createFromObjects('Camada de Objetos 1',66, 'saw',0 ,true, true, this.obstacles, Saw)
 
         this.mapLayer.resizeWorld()
 
 
 
-
-
-
+        //this.createSaw(659, 200)
+        //this.spawnSaw(659, 200)
+        //this.obstacles.add.existing(saw)
 
 
     }
@@ -109,13 +116,13 @@ class GameState extends BaseState {
         this.mapLayer.dirty = true // força update dos tiles do mapa.
     }
 
-    spawnSaw(x, y, type) {
-        let saw = new Saw(this.game, x, y, 'saw', type)
+    spawnSaw(x, y) {
+        let saw = new Saw(this.game, x, y, 'saw')
         this.obstacles.add(saw)
     }
 
-    createSaw(x, y, type) {
-        this.game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 7, this.spawnSaw, this, x, y, type);
+    createSaw(x, y ) {
+        this.game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 7, this.spawnSaw, this, x, y);
     }
 
     createBullets() {
@@ -171,6 +178,8 @@ class GameState extends BaseState {
 
         // colisoes com mapa
         this.game.physics.arcade.collide(this.player1, this.mapLayer);
+        this.game.physics.arcade.collide(this.player1, this.obstacles);
+        this.game.physics.arcade.collide(this.player1, this.feather);
 
         // colisao com serras
         //this.game.physics.arcade.collide(this.player1, this.obstacles, this.hitObstacle, null, this)
@@ -210,6 +219,13 @@ class GameState extends BaseState {
 
     render() {
         this.game.debug.body(this.player1)
+        this.obstacles.forEach(function(obj){
+            this.game.debug.body(obj)
+        },this)
+
+        this.feather.forEach(function(obj){
+            this.game.debug.body(obj)
+        },this)
         //obstacles.forEach(function(obj) { game.debug.body(obj) })
         //game.debug.body(player1)
         //game.debug.body(player2)
