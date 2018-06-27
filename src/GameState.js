@@ -24,13 +24,12 @@ class GameState extends BaseState {
                 this.fog.fixedToCamera = true
                 
                 //this.obstacles = this.game.add.group()
-                this.createTileMap()
-                this.createExplosions()
+                
                 
                 
                 
                 this.player1 = new Player(this.game, 100, 100,
-                    'animation', 0xff0000, null, {
+                    'animation', 0xff0000, this.createBullets(), {
                         left: Phaser.Keyboard.LEFT,
                         right: Phaser.Keyboard.RIGHT,
                         jump: Phaser.Keyboard.UP
@@ -43,6 +42,7 @@ class GameState extends BaseState {
                         text2: this.createText(this.game.width * 8 / 9, 50, 'PLAYER 2: 20')
                         //fps: createHealthText(game.width*6/9, 50, 'FPS'),
                     }
+                    this.createTileMap()
                     this.updateHud()
                     
                     let fps = new FramesPerSecond(this.game, this.game.width / 2, 50)
@@ -59,9 +59,12 @@ class GameState extends BaseState {
                     this.game.add.existing(vpad)
                     
                     let jumpButton = vpad.addActionButton(
-                        this.game.width-100, this.game.height-120, 'vstick_button',() => this.player1.jump())
+                        this.game.width-100, this.game.height-50, 'vstick_button',() => this.player1.jump())
+
+                        let fireButton = vpad.addActionButton(
+                            this.game.width-200, this.game.height-50, 'vstick_button',() => this.player1.fireBullet())
                         
-                        let dpadButton = vpad.addDPadButton(100, this.game.height - 120, 'vstick_dpad', {
+                        let dpadButton = vpad.addDPadButton(100, this.game.height - 50, 'vstick_dpad', {
                             leftPressed: () => this.player1.keys.left.isDown = true,
                             leftReleased: () => this.player1.keys.left.isDown = false,
                             rightPressed: () => this.player1.keys.right.isDown = true,
@@ -78,15 +81,15 @@ class GameState extends BaseState {
     createTileMap() {
         // TODO implementar leitura do arquivo de tilemap e objetos
         this.map = this.game.add.tilemap('level1')
-        this.map.addTilesetImage('Tiles_32x32')
+        this.map.addTilesetImage('tiles_35x35')
         this.map.addTilesetImage('feather')
-        this.map.addTilesetImage('saw')
+        //this.map.addTilesetImage('saw')
 
         //this.mapLayer_serras = this.map.createLayer('Camada de Objetos2')
         //this.map.setCollisionBetween(65, 66, true, 'Camada de Tiles 2')
         
         this.mapLayer = this.map.createLayer('Camada de Tiles 1')
-        this.map.setCollisionBetween(1, 65, true, 'Camada de Tiles 1')
+        this.map.setCollisionBetween(1, 38, true, 'Camada de Tiles 1')
 
 
         //this.mapLayer.resizeWorld()
@@ -95,17 +98,35 @@ class GameState extends BaseState {
 
         this.obstacles = this.game.add.group()
         this.feather = this.game.add.group()
-        this.mines = this.game.add.group()
+        this.robos = this.game.add.group()
+        this.snake = this.game.add.group()
+        this.snake_right = this.game.add.group()
         //this.map.createFromObjects('Camada de Objetos 1', 66, 'feather', 0, true, true, this.obstacles, fea  )
-        this.map.createFromObjects('Camada de Objetos 1',65, 'feather',0 ,true, true, this.feather, Feather)
-        this.map.createFromObjects('Camada de Objetos 1',70, 'spritesheet_mina',0 ,true, true, this.mines, Feather)
+        this.map.createFromObjects('Camada de Objetos 1',37, 'feather',0 ,true, true, this.feather, Feather)
+        this.map.createFromObjects('inimigos',38, 'robot',0 ,true, true, this.robos, Robot)
+        this.map.createFromObjects('inimigos',45, 'snake',0 ,true, true, this.snake )
+        this.map.createFromObjects('inimigos',51, 'snake_right',0 ,true, true, this.snake_right)
+        //this.map.createFromObjects('Camada de Objetos 1',70, 'spritesheet_mina',0 ,true, true, this.mines, Feather)
        // this.map.createFromObjects('Camada de Objetos 1',66, 'saw',0 ,true, true, this.obstacles, Saw)
 
-       this.mines.forEach(function(obj){
-           obj.animations.add('idle', [7,8, 2, 3, 0, 6], 10, true)
-           obj.animations.play('idle')
+       this.robos.forEach(function(obj){
+           obj.animations.add('andar', [0, 1, 2, 3, 4, 5, 6], 20, true)
+           obj.animations.play('andar')
        })
-       
+
+       this.snake.forEach(function(obj){
+        obj.animations.add('anim', [0, 1, 2, 3, 4, 5, 6], 10, true)
+        obj.animations.play('anim')
+    })
+    this.snake_right.forEach(function(obj){
+        obj.animations.add('an', [0, 1, 2, 3, 4, 5, 6], 20, true)
+        obj.animations.play('an')
+    })
+    
+    this.player1.bullets.forEach(function(obj){
+        obj.animations.add('fire', [0, 1, 2, 3, 4, 5, 6], 10, true)
+        obj.animations.play('fire')
+    })
         this.mapLayer.resizeWorld()
 
 
@@ -136,29 +157,16 @@ class GameState extends BaseState {
         let bullets = this.game.add.group()
         bullets.enableBody = true
         bullets.physicsBodyType = Phaser.Physics.ARCADE
+        bullets.body.allowGravity = false
         bullets.createMultiple(10, 'shot')
         bullets.setAll('anchor.x', 0.5)
         bullets.setAll('anchor.y', 0.5)
         return bullets
     }
 
-    createExplosions() {
-        // cria pool de explosoes
-        this.explosions = this.game.add.group()
-        this.explosions.createMultiple(30, 'explosion')
-        this.explosions.forEach(function (exp) {
-            let anim = exp.animations.add('full', null, 60, false) // null -> array of frames
-            exp.scale.setTo(0.5, 0.5)
-            exp.anchor.setTo(0.5, 0.5)
-            anim.onComplete.add(() => exp.kill())
-        })
-    }
+    
 
-    createExplosion(x, y) {
-        let exp = this.explosions.getFirstExists(false)
-        exp.reset(x, y)
-        exp.animations.play('full')
-    }
+    
 
     toggleFullScreen() {
         this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
@@ -181,7 +189,7 @@ class GameState extends BaseState {
         this.fog.tilePosition.x += 0.3
 
         //moveAndStop(player1)
-        //this.updateBullets(this.player1.bullets)
+        this.updateBullets(this.player1.bullets)
 
         // colisoes com mapa
         this.game.physics.arcade.collide(this.player1, this.mapLayer);
@@ -195,7 +203,7 @@ class GameState extends BaseState {
     killBullet(bullet, wall) {
         //wall.kill()
         bullet.kill()
-        this.createExplosion(bullet.x, bullet.y)
+        
     }
 
     hitObstacle(player, obstacle) {
@@ -208,6 +216,22 @@ class GameState extends BaseState {
             let forceDirection = this.game.physics.arcade.angleBetween(obstacle, player)
             this.game.physics.arcade.velocityFromRotation(forceDirection, 600, player.body.velocity)
         }
+    }
+
+    createBullets() {
+        let bullets = this.game.add.group()
+        bullets.enableBody = true
+        bullets.physicsBodyType = Phaser.Physics.ARCADE
+        bullets.createMultiple(1, 'shot')
+        bullets.setAll('anchor.x', 0.5)
+        bullets.setAll('anchor.y', 0.5)
+        return bullets
+    }
+
+    updateBullets(bullets) {
+        bullets.forEach(function (bullet) {
+            this.game.world.wrap(bullet, 0, true)
+        }, this)
     }
 
     hitPlayer(player, bullet) {
@@ -225,12 +249,18 @@ class GameState extends BaseState {
     }
 
     render() {
-        this.game.debug.body(this.player1)
+        this.updateBullets(this.player1.bullets)
+        
+       // this.game.debug.body(this.player1)
         this.obstacles.forEach(function(obj){
             this.game.debug.body(obj)
         },this)
 
         this.feather.forEach(function(obj){
+            this.game.debug.body(obj)
+        },this)
+
+        this.robos.forEach(function(obj){
             this.game.debug.body(obj)
         },this)
         //obstacles.forEach(function(obj) { game.debug.body(obj) })

@@ -1,4 +1,3 @@
-
 class Feather extends Phaser.Sprite {
     constructor(game, x, y, img, ) {
         super(game, x, y, img)  
@@ -11,7 +10,7 @@ class Feather extends Phaser.Sprite {
         this.body.setSize(30,43, 0,0)
         //this.body.isCircle = true
         this.up = this.body.y
-        this.down = this.up - 3
+        this.down = this.up - 10
         
         game.add.tween(this)
                 .to( { y: this.down},900 )

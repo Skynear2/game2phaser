@@ -1,5 +1,5 @@
 
-class Feather extends Phaser.Sprite {
+class Mine extends Phaser.Sprite {
     constructor(game, x, y, img, ) {
         super(game, x, y, img)  
         this.scale.setTo(0.2,0.2)

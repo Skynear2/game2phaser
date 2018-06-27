@@ -17,7 +17,7 @@
          "name":"Camada de Objetos 1",
          "objects":[
                 {
-                 "gid":66,
+                 "gid":65,
                  "height":64,
                  "id":30,
                  "name":"",
@@ -29,7 +29,7 @@
                  "y":705.333333333333
                 }, 
                 {
-                 "gid":66,
+                 "gid":65,
                  "height":64,
                  "id":31,
                  "name":"",
@@ -41,7 +41,7 @@
                  "y":701.333333333333
                 }, 
                 {
-                 "gid":66,
+                 "gid":65,
                  "height":64,
                  "id":32,
                  "name":"",
@@ -53,7 +53,7 @@
                  "y":706.666666666667
                 }, 
                 {
-                 "gid":66,
+                 "gid":65,
                  "height":64,
                  "id":33,
                  "name":"",
@@ -63,54 +63,6 @@
                  "width":64,
                  "x":680,
                  "y":698.666666666667
-                }, 
-                {
-                 "gid":65,
-                 "height":88,
-                 "id":41,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":60,
-                 "x":399.333333333333,
-                 "y":688
-                }, 
-                {
-                 "gid":65,
-                 "height":88,
-                 "id":42,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":60,
-                 "x":199.333333333333,
-                 "y":665.333333333333
-                }, 
-                {
-                 "gid":65,
-                 "height":88,
-                 "id":43,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":60,
-                 "x":338,
-                 "y":566.666666666667
-                }, 
-                {
-                 "gid":65,
-                 "height":88,
-                 "id":44,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":60,
-                 "x":470,
-                 "y":552
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -140,19 +92,6 @@
         {
          "columns":1,
          "firstgid":65,
-         "image":"feather.png",
-         "imageheight":88,
-         "imagewidth":60,
-         "margin":0,
-         "name":"feather",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":88,
-         "tilewidth":60
-        }, 
-        {
-         "columns":1,
-         "firstgid":66,
          "image":"saw.png",
          "imageheight":64,
          "imagewidth":64,
