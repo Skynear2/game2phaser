@@ -95,10 +95,17 @@ class GameState extends BaseState {
 
         this.obstacles = this.game.add.group()
         this.feather = this.game.add.group()
+        this.mines = this.game.add.group()
         //this.map.createFromObjects('Camada de Objetos 1', 66, 'feather', 0, true, true, this.obstacles, fea  )
-        this.map.createFromObjects('Camada de Objetos 1',65, 'feather',0 ,true, true, this.feather, Saw)
-        this.map.createFromObjects('Camada de Objetos 1',66, 'saw',0 ,true, true, this.obstacles, Saw)
+        this.map.createFromObjects('Camada de Objetos 1',65, 'feather',0 ,true, true, this.feather, Feather)
+        this.map.createFromObjects('Camada de Objetos 1',70, 'spritesheet_mina',0 ,true, true, this.mines, Feather)
+       // this.map.createFromObjects('Camada de Objetos 1',66, 'saw',0 ,true, true, this.obstacles, Saw)
 
+       this.mines.forEach(function(obj){
+           obj.animations.add('idle', [7,8, 2, 3, 0, 6], 10, true)
+           obj.animations.play('idle')
+       })
+       
         this.mapLayer.resizeWorld()
 
 
