@@ -86,6 +86,7 @@ class Player extends Phaser.Sprite {
             bullet.reset(this.x, this.y)
             bullet.lifespan = config.BULLET_LIFE_SPAN
             // bullet.rotation = this.rotation
+            bullet.body.enableBody = true
             bullet.body.bounce.setTo(1, 1)
             bullet.body.friction.setTo(0, 0)
             bullet.body.allowGravity = false

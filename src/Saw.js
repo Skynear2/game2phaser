@@ -20,11 +20,11 @@ class Saw extends Phaser.Sprite {
         
         
                     
-        game.add.tween(this)
+        /*game.add.tween(this)
             .to ( { alpha: 0.6 }, 500 )
             .to ( { alpha: 1.0 }, 500 )
             .loop(-1)
-            .start()
+            .start()*/
     
         game.add.tween(this)
             .to ( { angle: -359 }, 2000 )

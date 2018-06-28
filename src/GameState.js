@@ -103,25 +103,16 @@ class GameState extends BaseState {
         this.snake_right = this.game.add.group()
         //this.map.createFromObjects('Camada de Objetos 1', 66, 'feather', 0, true, true, this.obstacles, fea  )
         this.map.createFromObjects('Camada de Objetos 1',37, 'feather',0 ,true, true, this.feather, Feather)
-        this.map.createFromObjects('inimigos',38, 'robot',0 ,true, true, this.robos, Robot)
-        this.map.createFromObjects('inimigos',45, 'snake',0 ,true, true, this.snake )
-        this.map.createFromObjects('inimigos',51, 'snake_right',0 ,true, true, this.snake_right)
+        this.map.createFromObjects('inimigos',38, 'robot',0 ,true, true, this.obstacles, Robot)
+        this.map.createFromObjects('inimigos',45, 'snake',0 ,true, true, this.obstacles, Snake )
+        this.map.createFromObjects('inimigos',51, 'snake_right',0 ,true, true, this.obstacles, Snake)
         //this.map.createFromObjects('Camada de Objetos 1',70, 'spritesheet_mina',0 ,true, true, this.mines, Feather)
        // this.map.createFromObjects('Camada de Objetos 1',66, 'saw',0 ,true, true, this.obstacles, Saw)
 
-       this.robos.forEach(function(obj){
-           obj.animations.add('andar', [0, 1, 2, 3, 4, 5, 6], 20, true)
-           obj.animations.play('andar')
-       })
+       
 
-       this.snake.forEach(function(obj){
-        obj.animations.add('anim', [0, 1, 2, 3, 4, 5, 6], 10, true)
-        obj.animations.play('anim')
-    })
-    this.snake_right.forEach(function(obj){
-        obj.animations.add('an', [0, 1, 2, 3, 4, 5, 6], 20, true)
-        obj.animations.play('an')
-    })
+     
+    
     
     this.player1.bullets.forEach(function(obj){
         obj.animations.add('fire', [0, 1, 2, 3, 4, 5, 6], 10, true)
@@ -187,14 +178,17 @@ class GameState extends BaseState {
         //    hud.fps.text = `FPS ${game.time.fps}`
         this.sky.tilePosition.x += 0.5
         this.fog.tilePosition.x += 0.3
-
+        this.updateHud()
         //moveAndStop(player1)
         this.updateBullets(this.player1.bullets)
 
         // colisoes com mapa
         this.game.physics.arcade.collide(this.player1, this.mapLayer);
-        this.game.physics.arcade.collide(this.player1, this.obstacles);
-        this.game.physics.arcade.collide(this.player1, this.feather);
+        this.game.physics.arcade.collide(this.player1.bullets, this.mapLayer, this.killBullet, null, this);
+        this.game.physics.arcade.collide(this.player1, this.obstacles, this.hitObstacle,null, this);
+        this.game.physics.arcade.overlap(this.player1.bullets, this.obstacles, this.hitEnemy, null, this);
+        //this.game.physics.arcade.collide(this.player1, this.robos, this.hitEnemy,null, this);
+        
 
         // colisao com serras
         //this.game.physics.arcade.collide(this.player1, this.obstacles, this.hitObstacle, null, this)
@@ -206,10 +200,19 @@ class GameState extends BaseState {
         
     }
 
+    hitEnemy(bullets, obstacles){
+        obstacles.health = -1
+        bullets.kill()  
+        obstacles.kill()  
+    }
+
+    
+
+
     hitObstacle(player, obstacle) {
         if (player.alive) {
             player.damage(1)
-            this.updateHud()
+            this.game.updateHud
             this.game.camera.shake(0.01, 200);
 
             // empurra jogador na direcao oposta a da colisao
@@ -237,8 +240,7 @@ class GameState extends BaseState {
     hitPlayer(player, bullet) {
         if (player.alive) {
             player.damage(1)
-            bullet.kill()
-            this.createExplosion(bullet.x, bullet.y)
+            sbullet.kill()
             this.updateHud()
             this.game.camera.shake(0.01, 200);
         }
@@ -255,14 +257,17 @@ class GameState extends BaseState {
         this.obstacles.forEach(function(obj){
             this.game.debug.body(obj)
         },this)
-
+        this.player1.bullets.forEach(function(obj){
+            this.game.debug.body(obj)
+        },this)
+/*
         this.feather.forEach(function(obj){
             this.game.debug.body(obj)
         },this)
 
         this.robos.forEach(function(obj){
             this.game.debug.body(obj)
-        },this)
+        },this)*/
         //obstacles.forEach(function(obj) { game.debug.body(obj) })
         //game.debug.body(player1)
         //game.debug.body(player2)
