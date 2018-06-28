@@ -106,6 +106,7 @@ class GameState extends BaseState {
         this.map.createFromObjects('inimigos',38, 'robot',0 ,true, true, this.obstacles, Robot)
         this.map.createFromObjects('inimigos',45, 'snake',0 ,true, true, this.obstacles, Snake )
         this.map.createFromObjects('inimigos',51, 'snake_right',0 ,true, true, this.obstacles, Snake)
+        this.map.createFromObjects('inimigos',57, 'boss',0 ,true, true, this.obstacles, Saw)
         //this.map.createFromObjects('Camada de Objetos 1',70, 'spritesheet_mina',0 ,true, true, this.mines, Feather)
        // this.map.createFromObjects('Camada de Objetos 1',66, 'saw',0 ,true, true, this.obstacles, Saw)
 

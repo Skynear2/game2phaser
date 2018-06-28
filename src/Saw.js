@@ -17,6 +17,8 @@ class Saw extends Phaser.Sprite {
         var down  = game.height
         var hDelay = game.width/(config.SAW_VELOCITY/1000)
         var vDelay = game.height/(config.SAW_VELOCITY/1000)
+        this.animations.add('teste', [0, 1, 2], 20, true)
+        this.animations.play('teste')
         
         
                     

@@ -21,6 +21,7 @@ class BootState extends Phaser.State {
         this.game.load.spritesheet('snake', 'assets/sprites_snake.png', 80, 95, 6)
         this.game.load.spritesheet('snake_right', 'assets/snake_right.png', 80, 95, 6)
         this.game.load.spritesheet('shot', 'assets/sprite_shot.png', 35, 20, 5)
+        this.game.load.spritesheet('boss', 'assets/sprites_boss.png', 110, 184, 3)
         
         this.game.load.spritesheet('spritesheet_mina', 'assets/spritesheet_mina.png', 37, 32)
 
