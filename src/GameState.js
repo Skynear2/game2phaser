@@ -322,7 +322,7 @@ class GameState extends BaseState {
     }
 
     render() {
-        this.updateBullets(this.player1.bullets)
+       /* this.updateBullets(this.player1.bullets)
 
         // this.game.debug.body(this.player1)
         this.obstacles.forEach(function (obj) {
@@ -339,7 +339,7 @@ class GameState extends BaseState {
         this.boss.forEach(function (obj) {
             this.game.debug.body(obj)
         }, this)
-        /*
+         *//*
                 this.feather.forEach(function(obj){
                     this.game.debug.body(obj)
                 },this)
