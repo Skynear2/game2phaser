@@ -15,17 +15,18 @@ config.RES_Y = 480
 config.PLAYER_ACCELERATION = 600
 config.PLAYER_TURN_VELOCITY = 350
 config.PLAYER_MAX_VELOCITY = 400//250
-config.PLAYER_HEALTH = 30
+config.PLAYER_HEALTH = 6
 config.PLAYER_DRAG = 300
 config.GRAVITY = 300
-
+config.boss = 0
 config.BULLET_FIRE_RATE = 20
 config.BULLET_ANGLE_ERROR = 0.1
 config.BULLET_LIFE_SPAN = 750
 config.BULLET_VELOCITY = 600
-
+config.TRUEFINAL = false
 config.SAW_VELOCITY = 150
 
+config.LEVEL = 1
 class Game extends Phaser.Game {
     constructor() {
         super(config.RES_X, config.RES_Y, Phaser.CANVAS,

@@ -5,6 +5,9 @@ class Player extends Phaser.Sprite {
 
         game.physics.arcade.enable(this)
         this.health = config.PLAYER_HEALTH
+        this.score = 0
+        this.pulo = 500
+
         //this.body.isCircle = true
         this.body.setSize(45, 58, 13, 8)
         this.anchor.setTo(0.4, 0.4)
@@ -21,7 +24,7 @@ class Player extends Phaser.Sprite {
         this.body.mass = config.MASS
         this.facing = 'right'
         this.animations.add('walk', [0, 3, 1, 4, 6, 7], 10, true)
-        this.animations.add('stay', [2, 5], 30)
+        this.animations.add('stay', [5], 30)
         this.flag = true
 
         this.keys = {
@@ -67,7 +70,7 @@ class Player extends Phaser.Sprite {
 
         if (this.keys.jump.isDown) {
             if (this.body.onFloor) {
-                this.body.velocity.y += -500
+                this.body.velocity.y += this.pulo
             }
 
         }
@@ -93,14 +96,14 @@ class Player extends Phaser.Sprite {
             if (this.facing == 'left') {
                 this.flag = false
                 bullet.scale.x *= -1
-                bullet.body.velocity.x -= 200
+                bullet.body.velocity.x -= 500
             } else if (this.facing == 'right' && this.flag == true) {
                 //bullet.scale.x *= -1    
-                bullet.body.velocity.x += 200
+                bullet.body.velocity.x += 500
             } else if (this.facing == 'right' && this.flag == false) {
                 this.flag = true
                 bullet.scale.x *= -1
-                bullet.body.velocity.x += 200
+                bullet.body.velocity.x += 500
             }
 
         }

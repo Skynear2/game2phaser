@@ -7,7 +7,8 @@ class Mine extends Phaser.Sprite {
         game.physics.arcade.enable(this)
         this.body.immovable = true
         this.body.allowGravity = false
-
+        this.damage = 1
+        this.health = 2
         this.body.setSize(30,43, 0,0)
         //this.body.isCircle = true
         
