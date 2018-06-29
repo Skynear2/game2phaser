@@ -31,6 +31,10 @@ class GameState extends BaseState {
         this.player1 = new Player(this.game, 100, 100,
             'animation', 0xff0000, this.createBullets(), {
                 left: Phaser.Keyboard.LEFT,
+                andarR: Phaser.Keyboard.S,
+                andarL: Phaser.Keyboard.A,
+                pular: Phaser.Keyboard.L,
+                atk: Phaser.Keyboard.K,
                 right: Phaser.Keyboard.RIGHT,
                 jump: Phaser.Keyboard.UP
             })

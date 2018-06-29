@@ -30,9 +30,11 @@ class Player extends Phaser.Sprite {
         this.keys = {
             left: game.input.keyboard.addKey(keys.left),
             right: game.input.keyboard.addKey(keys.right),
-            //andarL: game.input.keyboard.addKey(keys.andarL),
-            //andarR: game.input.keyboard.addKey(keys.andarR),          
-            jump: game.input.keyboard.addKey(keys.jump)
+            andarL: game.input.keyboard.addKey(keys.andarL),
+            andarR: game.input.keyboard.addKey(keys.andarR),          
+            jump: game.input.keyboard.addKey(keys.jump),
+            pular: game.input.keyboard.addKey(keys.Pular),
+            ataca: game.input.keyboard.addKey(keys.atk)
         }
 
 
@@ -43,7 +45,7 @@ class Player extends Phaser.Sprite {
     }
 
     movePerson() {
-        if (this.keys.left.isDown) {
+        if (this.keys.left.isDown || this.keys.andarL.isDown) {
             this.facing = 'left'
             this.body.velocity.x = -this.velocity
 
@@ -52,7 +54,7 @@ class Player extends Phaser.Sprite {
             }
             this.animations.play('walk', 20)
         }
-        else if (this.keys.right.isDown) {
+        else if (this.keys.right.isDown || this.keys.andarR.isDown) {
             this.facing = 'right'
             this.body.velocity.x = +this.velocity
 
@@ -68,7 +70,7 @@ class Player extends Phaser.Sprite {
         }
 
 
-        if (this.keys.jump.isDown) {
+        if (this.keys.jump.isDown ) {
             if (this.body.onFloor) {
                 this.body.velocity.y += this.pulo
             }
