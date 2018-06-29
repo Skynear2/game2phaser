@@ -116,7 +116,7 @@ class Player extends Phaser.Sprite {
     jump() {
         if (this.body.onFloor()) {
             console.log('chao:' + this.body.onFloor())
-            this.body.velocity.y += -500
+            this.body.velocity.y += -600
         }
         else
             this.body.velocity.y += 0

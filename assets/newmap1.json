@@ -1549,6 +1549,18 @@
                  "width":35,
                  "x":981,
                  "y":683
+                }, 
+                {
+                 "gid":75,
+                 "height":24,
+                 "id":375,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":25,
+                 "x":7,
+                 "y":380
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1556,7 +1568,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":375,
+ "nextobjectid":376,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.5",
@@ -1740,7 +1752,7 @@
          "margin":0,
          "name":"sprites_boss",
          "spacing":1,
-         "tilecount":2,
+         "tilecount":0,
          "tileheight":184,
          "tilewidth":110
         }],

@@ -1381,6 +1381,30 @@
                  "width":35,
                  "x":2157,
                  "y":345
+                }, 
+                {
+                 "gid":75,
+                 "height":24,
+                 "id":491,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":25,
+                 "x":295,
+                 "y":95
+                }, 
+                {
+                 "gid":75,
+                 "height":24,
+                 "id":492,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":25,
+                 "x":2042,
+                 "y":551
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1388,7 +1412,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":491,
+ "nextobjectid":493,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.5",
@@ -1572,7 +1596,7 @@
          "margin":0,
          "name":"sprites_boss",
          "spacing":1,
-         "tilecount":2,
+         "tilecount":0,
          "tileheight":184,
          "tilewidth":110
         }],
