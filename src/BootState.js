@@ -32,9 +32,10 @@ class BootState extends Phaser.State {
         this.game.load.spritesheet('knight3', 'assets/knight_100x94.png', 100, 94, 7)
 
         // map
-        this.game.load.tilemap('level1', 'assets/newmap3.json', null, Phaser.Tilemap.TILED_JSON);
-        //this.game.load.tilemap('level2', 'assets/newmap1.json', null, Phaser.Tilemap.TILED_JSON);
-       // this.game.load.tilemap('level2', 'assets/level2.json', null, Phaser.Tilemap.TILED_JSON)
+        this.game.load.tilemap('level1', 'assets/newmap.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.tilemap('level2', 'assets/newmap1.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.tilemap('level3', 'assets/level2.json', null, Phaser.Tilemap.TILED_JSON)
+        this.game.load.tilemap('level4', 'assets/level3.json', null, Phaser.Tilemap.TILED_JSON)
         this.game.load.image('tiles_35x35','assets/tiles_35x35.png');
     }
 
